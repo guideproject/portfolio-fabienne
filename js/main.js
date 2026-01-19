@@ -107,12 +107,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ============================================
-    // Formulaire de contact (avec Formspree)
+    // Formulaire de contact (avec Formspree - AJAX)
     // ============================================
     const contactForm = document.getElementById('contact-form');
     
     if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
             // Validation basique avant envoi
             let isValid = true;
             const requiredFields = ['name', 'email', 'message'];
@@ -136,12 +138,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             if (!isValid) {
-                e.preventDefault();
                 return;
             }
             
             // Animation du bouton pendant l'envoi
             const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
             submitBtn.innerHTML = `
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin">
                     <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
@@ -149,6 +152,57 @@ document.addEventListener('DOMContentLoaded', function() {
                 Envoi en cours...
             `;
             submitBtn.disabled = true;
+
+            try {
+                const formData = new FormData(contactForm);
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    // Succès
+                    submitBtn.innerHTML = `
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Message envoyé !
+                    `;
+                    submitBtn.style.backgroundColor = '#27ae60';
+                    submitBtn.style.borderColor = '#27ae60';
+                    
+                    // Reset après 3 secondes
+                    setTimeout(() => {
+                        contactForm.reset();
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.style.backgroundColor = '';
+                        submitBtn.style.borderColor = '';
+                        submitBtn.disabled = false;
+                    }, 3000);
+                } else {
+                    throw new Error('Erreur lors de l\'envoi');
+                }
+            } catch (error) {
+                // Erreur
+                submitBtn.innerHTML = `
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Erreur, réessayez
+                `;
+                submitBtn.style.backgroundColor = '#e74c3c';
+                submitBtn.style.borderColor = '#e74c3c';
+                
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.style.backgroundColor = '';
+                    submitBtn.style.borderColor = '';
+                    submitBtn.disabled = false;
+                }, 3000);
+            }
         });
 
         // Retirer le style d'erreur au focus
