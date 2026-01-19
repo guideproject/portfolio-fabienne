@@ -1258,51 +1258,83 @@ strong {
 }
 
 .contact__form {
-    background-color: var(--color-white);
-    padding: var(--space-2xl);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
+    background: linear-gradient(135deg, #ffffff 0%, #fdfbf8 100%);
+    padding: var(--space-3xl);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 10px 40px rgba(139, 115, 85, 0.12), 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(139, 115, 85, 0.1);
+    position: relative;
+}
+
+.contact__form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
 .form__group {
-    margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-xl);
 }
 
 .form__label {
     display: block;
     font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-semibold);
     color: var(--color-text);
     margin-bottom: var(--space-sm);
+    letter-spacing: 0.01em;
 }
 
 .form__input,
 .form__textarea {
     width: 100%;
-    padding: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
     font-family: var(--font-body);
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     color: var(--color-text);
-    background-color: var(--color-background);
-    border: 1px solid var(--color-border);
+    background-color: var(--color-white);
+    border: 2px solid var(--color-border-light);
     border-radius: var(--radius-sm);
-    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    transition: all var(--transition-base);
+}
+
+.form__input:hover,
+.form__textarea:hover {
+    border-color: var(--color-primary-light);
 }
 
 .form__input:focus,
 .form__textarea:focus {
     outline: none;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.1);
+    box-shadow: 0 0 0 4px rgba(139, 115, 85, 0.08);
+    transform: translateY(-1px);
 }
 
 .form__textarea {
-    min-height: 150px;
+    min-height: 160px;
     resize: vertical;
+    line-height: 1.6;
 }
 
 .form__submit {
     width: 100%;
+    padding: var(--space-lg) var(--space-2xl);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    margin-top: var(--space-md);
+    box-shadow: 0 4px 12px rgba(139, 115, 85, 0.2);
+    transition: all var(--transition-base);
+}
+
+.form__submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 115, 85, 0.3);
 }
 
 /* ----- Engagement Section ----- */
