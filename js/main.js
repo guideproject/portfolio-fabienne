@@ -107,19 +107,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ============================================
-    // Formulaire de contact
+    // Formulaire de contact (avec Formspree)
     // ============================================
     const contactForm = document.getElementById('contact-form');
     
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Récupérer les données du formulaire
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData.entries());
-            
-            // Validation basique
+            // Validation basique avant envoi
             let isValid = true;
             const requiredFields = ['name', 'email', 'message'];
             
@@ -141,40 +135,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 emailInput.style.borderColor = '#e74c3c';
             }
 
-            if (isValid) {
-                // Simuler l'envoi (à remplacer par une vraie soumission)
-                const submitBtn = contactForm.querySelector('button[type="submit"]');
-                const originalText = submitBtn.innerHTML;
-                
-                submitBtn.innerHTML = `
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin">
-                        <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
-                    </svg>
-                    Envoi en cours...
-                `;
-                submitBtn.disabled = true;
-
-                // Simuler un délai d'envoi
-                setTimeout(() => {
-                    submitBtn.innerHTML = `
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                        Message envoyé !
-                    `;
-                    submitBtn.style.backgroundColor = '#27ae60';
-                    submitBtn.style.borderColor = '#27ae60';
-
-                    // Reset après 3 secondes
-                    setTimeout(() => {
-                        contactForm.reset();
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.style.backgroundColor = '';
-                        submitBtn.style.borderColor = '';
-                        submitBtn.disabled = false;
-                    }, 3000);
-                }, 1500);
+            if (!isValid) {
+                e.preventDefault();
+                return;
             }
+            
+            // Animation du bouton pendant l'envoi
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            submitBtn.innerHTML = `
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin">
+                    <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
+                </svg>
+                Envoi en cours...
+            `;
+            submitBtn.disabled = true;
         });
 
         // Retirer le style d'erreur au focus
