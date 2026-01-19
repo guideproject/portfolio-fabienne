@@ -321,6 +321,24 @@ strong {
     background-color: var(--color-primary-dark);
 }
 
+.nav__link--download {
+    background-color: transparent;
+    color: var(--color-primary) !important;
+    padding: var(--space-sm) var(--space-lg);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    transition: var(--transition-base);
+}
+
+.nav__link--download::after {
+    display: none;
+}
+
+.nav__link--download:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white) !important;
+}
+
 .nav__toggle,
 .nav__close {
     display: none;
