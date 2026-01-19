@@ -1671,13 +1671,25 @@ strong {
     
     .hero__subtitle {
         font-size: var(--font-size-xs);
-        letter-spacing: 0.12em;
-        margin-bottom: var(--space-md);
+        letter-spacing: 0.15em;
+        margin-bottom: var(--space-sm);
+        color: var(--color-primary);
     }
     
     .hero__title {
-        font-size: var(--font-size-3xl);
+        font-size: 2.5rem;
         margin-bottom: var(--space-sm);
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+    }
+    
+    .hero__title .text-accent {
+        display: block;
+        font-size: 2.8rem;
+        background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
     }
     
     .hero__profession {
