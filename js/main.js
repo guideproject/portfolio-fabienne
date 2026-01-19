@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Validation basique
             let isValid = true;
-            const requiredFields = ['name', 'email', 'subject', 'message'];
+            const requiredFields = ['name', 'email', 'message'];
             
             requiredFields.forEach(field => {
                 const input = document.getElementById(field);
