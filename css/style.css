@@ -489,6 +489,17 @@ strong {
     z-index: 2;
 }
 
+.hero__photo {
+    width: 350px;
+    height: 400px;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: var(--radius-lg);
+    position: relative;
+    z-index: 2;
+    box-shadow: var(--shadow-lg);
+}
+
 .placeholder__initial {
     font-family: var(--font-heading);
     font-size: 6rem;
@@ -1354,6 +1365,11 @@ strong {
         height: 320px;
     }
     
+    .hero__photo {
+        width: 280px;
+        height: 320px;
+    }
+    
     .intro__grid,
     .qualities__content,
     .contact__grid,
@@ -1494,6 +1510,11 @@ strong {
         height: 260px;
     }
     
+    .hero__photo {
+        width: 220px;
+        height: 260px;
+    }
+
     .placeholder__initial {
         font-size: 4rem;
     }
